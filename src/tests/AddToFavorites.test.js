@@ -41,7 +41,6 @@ describe('Favorites Component', () => {
     // Simulate a click on the favorite button
     fireEvent.click(favoriteButton);
 
-    // Since the movie is already a favorite, onRemoveFromFavorites should be called with dummyMovie
     expect(onRemoveFromFavoritesMock).toHaveBeenCalledWith(dummyMovie);
   });
 });

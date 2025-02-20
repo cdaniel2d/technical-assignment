@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import MovieGrid from "./components/MovieGrid";
 import SearchBar from "./components/SearchBar";
 import GenreFilter from "./components/GenreFilter";
@@ -14,7 +14,7 @@ const API_KEY = "f9f8375a3713106eba88785ecb147749";
 
 const App = () => {
   const [movies, setMovies] = useState([]);
-  const [modalMovie, setModalMovie] = useState(null);
+  const [modalMovie, setModalMovie] = useState("null");
   const [searchQuery, setSearchQuery] = useState("");
   const [genre, setGenre] = useState(null);
   const [ratings, setRatings] = useState({});
@@ -45,44 +45,48 @@ const App = () => {
     }
   }, []);
 
-  // Fetch genres and movies
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const genreResponse = await fetch(`${API_URL}/genre/movie/list?api_key=${API_KEY}`);
-        const genreData = await genreResponse.json();
-        setGenres(genreData.genres);
-        setLoadingGenres(false);
 
-        await fetchMovies(); // Fetch initial movies
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    fetchData();
-  }, []);
 
-  // Fetch movies based on search query and genre
-  useEffect(() => {
-    fetchMovies();
-  }, [genre, searchQuery]);
-
-  const fetchMovies = async () => {
-    let url = `${API_URL}/discover/movie?api_key=${API_KEY}`;
-    if (searchQuery) {
-      url = `${API_URL}/search/movie?api_key=${API_KEY}&query=${searchQuery}`;
-    }
-    if (genre) {
-      url += `&with_genres=${genre}`;
-    }
+// Fetch genres and movies
+useEffect(() => {
+  const fetchData = async () => {
     try {
-      const response = await fetch(url);
-      const data = await response.json();
-      setMovies(data.results);
+      const genreResponse = await fetch(`${API_URL}/genre/movie/list?api_key=${API_KEY}`);
+      const genreData = await genreResponse.json();
+      setGenres(genreData.genres);
+      setLoadingGenres(false);
+
+      await fetchMovies(); // Fetch initial movies
     } catch (error) {
-      console.error("Error fetching movies:", error);
+      console.error("Error fetching data:", error);
     }
   };
+  fetchData();
+}, []); // Keep it empty since it only needs to run once
+
+
+// Memorized fetchMovies function to prevent unnecessary re-renders
+const fetchMovies = useCallback(async () => {
+  let url = `${API_URL}/discover/movie?api_key=${API_KEY}`;
+  if (searchQuery) {
+    url = `${API_URL}/search/movie?api_key=${API_KEY}&query=${searchQuery}`;
+  }
+  if (genre) {
+    url += `&with_genres=${genre}`;
+  }
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    setMovies(data.results);
+  } catch (error) {
+    console.error("Error fetching movies:", error);
+  }
+}, [searchQuery, genre]); // Dependencies on searchQuery and genre
+
+// Fetch movies based on search query and genre
+useEffect(() => {
+  fetchMovies();
+}, [fetchMovies]); // Now it includes the dependency for fetchMovies
 
   const handleAddToFavorites = (movie) => {
     const updatedFavorites = favorites.some((fav) => fav.id === movie.id)

@@ -48,7 +48,7 @@ const RecommendedMovies = ({
     };
 
     fetchRecommendations();
-  }, [favoriteMovies.length]);
+  }, [favoriteMovies.length]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="recommended-section">
