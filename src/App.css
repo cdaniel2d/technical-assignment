@@ -1,0 +1,222 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.section-title {
+  text-align:center;
+}
+
+.movie-card {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  position: relative;
+  background: #1c1c1c;
+  padding: 10px;
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  .poster-container {
+    position: relative;
+  }
+
+  .poster {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+  }
+
+  .favorite-button {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.3); /* Slightly transparent black */
+    border: none;
+    cursor: pointer;
+    padding: 6px 10px; /* Adjust padding for a more square look */
+    border-radius: 6px; /* Slightly rounded corners */
+    transition: background 0.3s ease-in-out;
+  }
+  
+  /* Hover effect for the button */
+  .favorite-button:hover {
+    background: rgba(0, 0, 0, 0.5);
+  }
+  
+  /* If you have a 'favorited' class that applies when the item is a favorite */
+  .favorite-button.favorited {
+    background: rgba(255, 0, 0, 0.3); /* Slightly transparent red */
+  }
+
+  .movie-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 8px;
+    color: white;
+  }
+}
+
+/* General Splide styling */
+.splide {
+  padding: 10px 0;
+}
+
+/* Splide track adjustments */
+.splide__track {
+  overflow: visible;
+}
+
+/* Individual slide */
+.splide__slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.splide__slide img {
+  max-width: 90%;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Slightly scale up the image on hover */
+.splide__slide:hover img {
+  transform: scale(1.05);
+}
+
+/* Custom navigation arrows */
+.splide__arrow {
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  transition: background 0.3s;
+}
+
+.splide__arrow:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+/* Positioning the pagination dots */
+.splide__pagination {
+  bottom: -10px;
+}
+
+.splide__pagination__page {
+  background: rgba(255, 255, 255, 0.6);
+  width: 10px;
+  height: 10px;
+}
+
+.splide__pagination__page.is-active {
+  background: white;
+}
+
+/* MovieGrid.css */
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive grid with a minimum column width of 250px */
+  gap: 1rem; /* Space between grid items */
+  padding: 1rem; /* Padding around the grid */
+}
+
+.movie-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.movie-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.heart-icon {
+  background: transparent; /* Ensure no background */
+  display: inline-block; /* Allow the SVG to be inline */
+  padding: 0; /* Remove any internal padding */
+}
+
+.star-icons {
+  font-size:25px;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure it's above other content */
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 80%;
+  max-width: 600px;
+}
+
+.recently-viewed {
+  text-align:center;
+  background: cadetblue;
+  padding-top:5px
+}
+
+.recommended-section {
+  padding:5px;
+  background: blanchedalmond;
+}
+
+.favorites-section {
+  padding:5px;
+  background:indianred;
+}

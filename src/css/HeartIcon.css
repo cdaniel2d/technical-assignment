@@ -1,0 +1,26 @@
+.heart-icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+  }
+  
+  /* Default: outline only, no fill */
+  .heart-icon path {
+    fill: red;
+    stroke: black;
+    stroke-width: 2;
+    transition: fill 0.2s ease, stroke 0.2s ease;
+  }
+  
+  /* On hover for non-favorited hearts: fill red */
+  .heart-icon:not(.favorited):hover path {
+    fill: red;
+    stroke: red;
+  }
+  
+  /* When favorited: fill red */
+  .heart-icon.favorited path {
+    fill: red;
+    stroke: red;
+  }
+  
