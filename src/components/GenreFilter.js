@@ -1,5 +1,5 @@
 import React from "react";
-import "../css/GenreFilter.css"; // Import your CSS file
+import "../css/GenreFilter.css";
 
 const GenreFilter = ({ genres, loading, setGenre }) => {
   return (

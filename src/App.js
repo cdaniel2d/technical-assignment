@@ -69,10 +69,10 @@ useEffect(() => {
     }
   };
   fetchData();
-}, []); // Keep it empty since it only needs to run once
+}, []); 
 
 
-// Memorized fetchMovies function to prevent unnecessary re-renders
+
 const fetchMovies = useCallback(async () => {
   let url = `${API_URL}/discover/movie?api_key=${API_KEY}`;
   if (searchQuery) {
@@ -93,7 +93,7 @@ const fetchMovies = useCallback(async () => {
 // Fetch movies based on search query and genre
 useEffect(() => {
   fetchMovies();
-}, [fetchMovies]); // Now it includes the dependency for fetchMovies
+}, [fetchMovies]); 
 
   const handleAddToFavorites = (movie) => {
     const updatedFavorites = favorites.some((fav) => fav.id === movie.id)
