@@ -6,6 +6,7 @@ import Favorites from "./components/Favorites";
 import Recommended from "./components/Recommended";
 import RecentlyViewed from "./components/RecentlyViewed";
 import MovieModal from "./components/MovieModal";
+import Pagination from "./components/Pagination";
 import "./App.css";
 
 const API_URL = "https://api.themoviedb.org/3";
@@ -22,6 +23,11 @@ const App = () => {
   const [loadingGenres, setLoadingGenres] = useState(true);
   const [selectedMovie, setSelectedMovie] = useState(null);
   
+   // Pagination state
+   const [currentPage, setCurrentPage] = useState(1);
+   const moviesPerPage = 12;
+   
+
   // Load recently viewed from localStorage
   const [recentlyViewed, setRecentlyViewed] = useState(() => {
     return JSON.parse(localStorage.getItem("recentlyViewed")) || [];
@@ -112,18 +118,29 @@ const App = () => {
     setSelectedMovie(null);
   };
 
+  // Calculate pagination variables
+  const indexOfLastMovie = currentPage * moviesPerPage;
+  const indexOfFirstMovie = indexOfLastMovie - moviesPerPage;
+  const currentMovies = movies.slice(indexOfFirstMovie, indexOfLastMovie);
+  const totalPages = Math.ceil(movies.length / moviesPerPage);
+
   return (
       <div className="app">
         <SearchBar onSearch={(query) => setSearchQuery(query)} />
         <GenreFilter genres={genres} loading={loadingGenres} setGenre={setGenre} />
         <MovieGrid
-          movies={movies}
+          movies={currentMovies}
           favorites={favorites}
           onAddToFavorites={handleAddToFavorites}
           onRateMovie={handleRateMovie}
           ratings={ratings}
           openModal={openModal}
         />
+        <Pagination 
+        currentPage={currentPage} 
+        totalPages={totalPages} 
+        onPageChange={setCurrentPage}
+      />
         <Favorites
           movies={favorites}
           onRemoveFromFavorites={handleAddToFavorites}
