@@ -39,6 +39,13 @@ const App = () => {
   }, [recentlyViewed]);
 
   useEffect(() => {
+    const savedRatings = localStorage.getItem("movieRatings");
+    if (savedRatings) {
+      setRatings(JSON.parse(savedRatings));
+    }
+  }, []);
+
+  useEffect(() => {
     const storedFavorites = localStorage.getItem("favorites");
     if (storedFavorites) {
       setFavorites(JSON.parse(storedFavorites));
